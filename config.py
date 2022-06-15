@@ -1,0 +1,768 @@
+y_name = 'Delirium_POSop7'
+
+# 
+# idade, ASA, porte, urgencia
+features_orig = [
+  #'NOME_REVISOR',
+  #'Dupla_Conf',
+  #'NOME_PACIENTE',
+  #'Prontuario',
+  #'Escolaridade',
+  'Sexo_M',
+  #'Cirurgia',
+  #'Data_Cirurgia',
+  #'Equipe_Cx',
+  'ASA',
+  'Urgencia',
+  'Idade',
+  'Porte',
+  #'predito_SAMPE1',
+  #'statusSAMPE1',
+  'Tempo_Cirurgico',
+  'ContamPeritoneal',
+  'Sangramento',
+  'Sepse_Preop',
+  'HAS_Preop',
+  'PCR_Preop',
+  'DAOP_Preop',
+  'CardIsq_Preop',
+  'Angina_Preop',
+  'IAMRecente_Preop',
+  'IAMAntigo_Preop',
+  'ICC_Preop',
+  'EAP_Preop',
+  'HAP_Preop',
+  'Valvulo_Preop',
+  'EstenAoGrave_Preop',
+  'Arritmia_Preop',
+  'Asma_Preop',
+  'DPOC_Preop',
+  'Tabag_Preop',
+  'ExTaba_Preop',
+  'O2Dom_Preop',
+  'IOT_Preop',
+  'Acamado_Preop',
+  'AVC_Preop',
+  'Demencia_Preop',
+  'Parkinson_Preop',
+  'Obesid_Preop',
+  'SAHOS_Preop',
+  'Desnutricao_Preop',
+  'DmNAOInsu_Preop',
+  'Dminsulino_Preop',
+  'Etilismo_Preop',
+  'Cirrose_Preop',
+  'HIV_Preop',
+  'Neoplasia_Preop',
+  'NeoInop_MTX_Preop',
+  #'Comorb_LIVRE',
+  'Vasopressor_Preop',
+  'VeioUTI_Preop',
+  'URPA_POSop',
+  'UTI_POSop',
+  'NoraCPD_POSop',
+  'NoraVascular_POSop',
+  'VasopChocado_POSop7',
+  'TempoVasoChocado_POSop7',
+  'Volume_POSop7',
+  'Oxigênio_POSop7',
+  'SuporteVent_POSop7',
+  'ATBTrat_POSop',
+  'Sepse_POSop7',
+  'Oliguria_POSop7',
+  'Abdominal_POSop7',
+  'IAM_POSop7',
+  'Arritmia_POSop7',
+  'EAP_POSop7',
+  'AnticoagPlena_POSop7',
+  'AVC_POSop7',
+  'Delirium_POSop7',
+  'Coma_POSop7',
+  'DeiscFO_POSop7',
+  'FOpurulenta_POSop7',
+  'Transfusao_POSop7',
+  'TRR_7dias',
+  #'Data1oTRR_POSop',
+  #'Complicacao_LIVRE',
+  'UTI_NaoPlanejadaPOSop7',
+  'pHArt_Preop',
+  'Lactato_Preop',
+  'Hb_Preop',
+  'Creatin_Preop',
+  'TFG_Preop',
+  'IRA_Preop',
+  'Dialise_Preop',
+  'IRC_Preop',
+  'pHArt_POSop7',
+  'Lactato_POSop7',
+  'Hb_POSop7',
+  'Creatin_POSop7',
+  'TFG_POSop7',
+  'IRA_POSop',
+  ###'Tempo_Int_TOTAL',
+  ###'Tempo_Int_POSop',
+  'Tempo_Int_Preop',
+  #'Data_Alta',
+  'Reintervencao_Cir30',
+  #'Data_Reintervencao',
+  #'Descricao_Reintervencao',
+  #'QTD_ReintervencnaInternacao',
+  'Reinternacao_30',
+  #'Data_Reinternacao',
+  #'Descricao_Reinternacao',
+  #'Obito_30', nao queremos
+  #'Data_Obito',
+  #'Causa_Obito_Descrever',
+  #'Comentários',
+  'Num_Complicacoes',
+  #'Quem_EvoD1',
+  #'Quem_EvoD2',
+  #'Leito_Internação',
+  'Tropo_PREop',
+  'Tropo_24H',
+  'Tropo_48H',
+  #'ETNIA',
+  #'ETNIA_CAT',
+  #'ETNIA_BRANCA',
+  #'ETNIA_PARDA',
+  #'ETNIA_PRETA',
+  #'ETNIA_PARDA_PRETA',
+]
+
+features_sel1 = [
+  #'NOME_REVISOR',
+  #'Dupla_Conf',
+  #'NOME_PACIENTE',
+  #'Prontuario',
+  #'Escolaridade',
+  ##'Sexo_M', Sem cor
+  #'Cirurgia',
+  #'Data_Cirurgia',
+  #'Equipe_Cx',
+  ##'ASA',  Falta D
+  ##'Urgencia', Inc
+  'Idade', # otimo
+  ##'Porte', sem corr
+  ##'predito_SAMPE1', ok mas n queremos usar
+  ##'statusSAMPE1',
+  ##'Tempo_Cirurgico', Inc
+  ##'ContamPeritoneal', Sem corr
+  ##'Sangramento', Falta D
+  'Sepse_Preop',
+  ##'HAS_Preop', Inc
+  ##'PCR_Preop', falta dados
+  ##'DAOP_Preop', sem corr
+  ##'CardIsq_Preop', sem corr
+  ##'Angina_Preop', sem corr
+  ##'IAMRecente_Preop', falta d
+  ##'IAMAntigo_Preop', sem corr
+  ##'ICC_Preop', sem corr
+  ##'EAP_Preop', Inc
+  ##'HAP_Preop', Inc
+  ##'Valvulo_Preop', Inc
+  ##'EstenAoGrave_Preop', Inc
+  ##'Arritmia_Preop', Inc
+  ##'Asma_Preop', FD
+  ##'DPOC_Preop', Inc
+  ##'Tabag_Preop', Sem corr
+  ##'ExTaba_Preop', Inc
+  ##'O2Dom_Preop', FD
+  ##'IOT_Preop', Inc
+  'Acamado_Preop',
+  ##'AVC_Preop', Inc
+  ##'Demencia_Preop', FD
+  ##'Parkinson_Preop', FD
+  ##'Obesid_Preop', Inc
+  ##'SAHOS_Preop', FD
+  ##'Desnutricao_Preop', FD
+  ##'DmNAOInsu_Preop', Redundante
+  ##'Dminsulino_Preop', Inc
+  ##'Etilismo_Preop', Sem corr
+  ##'Cirrose_Preop', FD
+  ##'HIV_Preop', FD
+  ##'Neoplasia_Preop', Sem corr
+  ##'NeoInop_MTX_Preop', Inc
+  #'Comorb_LIVRE',
+  ##'Vasopressor_Preop', Inc
+  ##'VeioUTI_Preop', Inc
+  ##'URPA_POSop', Redundante
+  'UTI_POSop',
+  ##'NoraCPD_POSop', Inc
+  ##'NoraVascular_POSop', FD
+  ##'VasopChocado_POSop7', FD
+  ##'TempoVasoChocado_POSop7', FD
+  ##'Volume_POSop7', Inc
+  'Oxigênio_POSop7',
+  'SuporteVent_POSop7',
+  'ATBTrat_POSop',
+  'Sepse_POSop7',
+  'Oliguria_POSop7',
+  'Abdominal_POSop7',
+  ##'IAM_POSop7', FD
+  'Arritmia_POSop7',
+  ##'EAP_POSop7', FD
+  ##'AnticoagPlena_POSop7', Inc
+  ##'AVC_POSop7', FD
+  'Delirium_POSop7',
+  'Coma_POSop7',
+  ##'DeiscFO_POSop7', FD
+  'FOpurulenta_POSop7',
+  'Transfusao_POSop7',
+  'TRR_7dias',
+  #'Data1oTRR_POSop',
+  #'Complicacao_LIVRE',
+  'UTI_NaoPlanejadaPOSop7',
+  ##'pHArt_Preop', INC
+  ##'Lactato_Preop', Inc
+  ##'Hb_Preop', Inc
+  ##'Creatin_Preop', Inc
+  'TFG_Preop',
+  ##'IRA_Preop', Inc
+  ##'Dialise_Preop', FD
+  ##'IRC_Preop', Inc
+  ##'pHArt_POSop7', Inc
+  ##'Lactato_POSop7', Inc
+  'Hb_POSop7',
+  'Creatin_POSop7',
+  'TFG_POSop7',
+  'IRA_POSop',
+  ####teste#'Tempo_Int_TOTAL',
+  'Tempo_Int_Preop',
+  ##'Tempo_Int_POSop', Redundante
+  #'Data_Alta',
+  ##'Reintervencao_Cir30', no
+  #'Data_Reintervencao',
+  #'Descricao_Reintervencao',
+  #'QTD_ReintervencnaInternacao',
+  ##'Reinternacao_30', sem corr
+  #'Data_Reinternacao',
+  #'Descricao_Reinternacao',
+  #'Obito_30', nao queremos
+  #'Data_Obito',
+  #'Causa_Obito_Descrever',
+  #'Comentários',
+  'Num_Complicacoes',
+  #'Quem_EvoD1',
+  #'Quem_EvoD2',
+  #'Leito_Internação',
+  ##'Tropo_PREop', n eh ruim mas tem muito poucos
+  ##'Tropo_24H',
+  ##'Tropo_48H',
+  #'ETNIA',
+  #'ETNIA_CAT',
+  #'ETNIA_BRANCA',
+  #'ETNIA_PARDA',
+  #'ETNIA_PRETA',
+  #'ETNIA_PARDA_PRETA',
+]
+
+
+
+features_sel2 = [
+  #'NOME_REVISOR',
+  #'Dupla_Conf',
+  #'NOME_PACIENTE',
+  #'Prontuario',
+  #'Escolaridade',
+  ##'Sexo_M',
+  #'Cirurgia',
+  #'Data_Cirurgia',
+  #'Equipe_Cx',
+  ##'ASA',
+  ##'Urgencia',
+  'Idade',
+  ##'Porte',
+  ##'predito_SAMPE1',
+  ##'statusSAMPE1',
+  ##'Tempo_Cirurgico',
+  ##'ContamPeritoneal',
+  ##'Sangramento',
+  ###'Sepse_Preop',# feat import RF
+  ##'HAS_Preop',
+  ##'PCR_Preop',
+  ##'DAOP_Preop',
+  ##'CardIsq_Preop',
+  ##'Angina_Preop',
+  ##'IAMRecente_Preop',
+  ##'IAMAntigo_Preop',
+  ##'ICC_Preop',
+  ##'EAP_Preop',
+  ##'HAP_Preop',
+  ##'Valvulo_Preop',
+  ##'EstenAoGrave_Preop',
+  ###'Arritmia_Preop',# feat import RF
+  ##'Asma_Preop',
+  ###'DPOC_Preop',# feat import RF
+  ##'Tabag_Preop',
+  ##'ExTaba_Preop',
+  ##'O2Dom_Preop',
+  ##'IOT_Preop',
+  ###'Acamado_Preop',# feat import RF
+  ##'AVC_Preop',
+  'Demencia_Preop',
+  ##'Parkinson_Preop',
+  ##'Obesid_Preop',
+  ##'SAHOS_Preop',
+  ##'Desnutricao_Preop',
+  ##'DmNAOInsu_Preop',
+  ###'Dminsulino_Preop',# feat import RF
+  ##'Etilismo_Preop',
+  ##'Cirrose_Preop',
+  ##'HIV_Preop',
+  ##'Neoplasia_Preop',
+  ##'NeoInop_MTX_Preop',
+  #'Comorb_LIVRE',
+  ##'Vasopressor_Preop',
+  ##'VeioUTI_Preop',
+  ##'URPA_POSop', ## Correlacao -1 com UTI_POSop
+  ###'UTI_POSop', # feat import RF
+  ##'NoraCPD_POSop',
+  ##'NoraVascular_POSop',
+  ##'VasopChocado_POSop7',
+  ##'TempoVasoChocado_POSop7',
+  ###'Volume_POSop7',# feat import RF
+  ###'Oxigênio_POSop7',# feat import RF
+  ###'SuporteVent_POSop7', # feat import RF
+  'ATBTrat_POSop',
+  ###'Sepse_POSop7',# feat import RF
+  ###'Oliguria_POSop7', # feat import RF
+  ###'Abdominal_POSop7', # feat import RF
+  ##'IAM_POSop7',
+  ###'Arritmia_POSop7', # feat import RF
+  ##'EAP_POSop7',
+  ##'AnticoagPlena_POSop7',
+  ###'AVC_POSop7', # feat import RF
+  'Delirium_POSop7',
+  ### 'Coma_POSop7', # feat import RF
+  ##'DeiscFO_POSop7',
+  ##'FOpurulenta_POSop7', # feat import RF
+  ###'Transfusao_POSop7', # feat import RF
+  ###'TRR_7dias', # feat import RF
+  #'Data1oTRR_POSop',
+  #'Complicacao_LIVRE',
+  ###'UTI_NaoPlanejadaPOSop7', # feat import RF
+  'pHArt_Preop',
+  ##'Lactato_Preop',
+  ###'Hb_Preop', # feat import RF
+  ###'Creatin_Preop', # feat import RF
+  ###'TFG_Preop', # feat import RF
+  ##'IRA_Preop',
+  'Dialise_Preop',
+  ##'IRC_Preop', # feat import RF
+  'pHArt_POSop7',
+  ##'Lactato_POSop7',
+  'Hb_POSop7',
+  'Creatin_POSop7',
+  'TFG_POSop7',
+  #'IRA_POSop', # feat import RF
+  'Tempo_Int_Preop',
+  ##'Tempo_Int_TOTAL', # eh redundante
+  ##'Tempo_Int_POSop',
+  #'Data_Alta',
+  #'Reintervencao_Cir30', # feat import RF
+  #'Data_Reintervencao',
+  #'Descricao_Reintervencao',
+  #'QTD_ReintervencnaInternacao',
+  ##'Reinternacao_30',
+  #'Data_Reinternacao',
+  #'Descricao_Reinternacao',
+  #'Obito_30', # feat import RF
+  #'Data_Obito',
+  #'Causa_Obito_Descrever',
+  #'Comentários',
+  'Num_Complicacoes',
+  #'Quem_EvoD1',
+  #'Quem_EvoD2',
+  #'Leito_Internação',
+  'Tropo_PREop',
+  ##'Tropo_24H',
+  ##'Tropo_48H',
+  #'ETNIA',
+  #'ETNIA_CAT',
+  ##'ETNIA_BRANCA',
+  ##'ETNIA_PARDA',
+  ##'ETNIA_PRETA',
+  ##'ETNIA_PARDA_PRETA',
+]
+
+features_sel3 = [
+  #'NOME_REVISOR',
+  #'Dupla_Conf',
+  #'NOME_PACIENTE',
+  #'Prontuario',
+  #'Escolaridade',
+  ##'Sexo_M',
+  #'Cirurgia',
+  #'Data_Cirurgia',
+  #'Equipe_Cx',
+  ##'ASA',
+  ##'Urgencia',
+  'Idade',
+  ##'Porte',
+  ##'predito_SAMPE1',
+  ##'statusSAMPE1',
+  ##'Tempo_Cirurgico',
+  ##'ContamPeritoneal',
+  ##'Sangramento',
+  ###'Sepse_Preop',# feat import RF
+  ##'HAS_Preop',
+  ##'PCR_Preop',
+  ##'DAOP_Preop',
+  ##'CardIsq_Preop',
+  ##'Angina_Preop',
+  ##'IAMRecente_Preop',
+  ##'IAMAntigo_Preop',
+  ##'ICC_Preop',
+  ##'EAP_Preop',
+  ##'HAP_Preop',
+  ##'Valvulo_Preop',
+  ##'EstenAoGrave_Preop',
+  ###'Arritmia_Preop',# feat import RF
+  ##'Asma_Preop',
+  ###'DPOC_Preop',# feat import RF
+  ##'Tabag_Preop',
+  ##'ExTaba_Preop',
+  ##'O2Dom_Preop',
+  ##'IOT_Preop',
+  ###'Acamado_Preop',# feat import RF
+  ##'AVC_Preop',
+  #'Demencia_Preop',
+  ##'Parkinson_Preop',
+  ##'Obesid_Preop',
+  ##'SAHOS_Preop',
+  ##'Desnutricao_Preop',
+  ##'DmNAOInsu_Preop',
+  ###'Dminsulino_Preop',# feat import RF
+  ##'Etilismo_Preop',
+  ##'Cirrose_Preop',
+  ##'HIV_Preop',
+  ##'Neoplasia_Preop',
+  ##'NeoInop_MTX_Preop',
+  #'Comorb_LIVRE',
+  ##'Vasopressor_Preop',
+  ##'VeioUTI_Preop',
+  ##'URPA_POSop', ## Correlacao -1 com UTI_POSop
+  ###'UTI_POSop', # feat import RF
+  ##'NoraCPD_POSop',
+  ##'NoraVascular_POSop',
+  ##'VasopChocado_POSop7',
+  ##'TempoVasoChocado_POSop7',
+  ###'Volume_POSop7',# feat import RF
+  ###'Oxigênio_POSop7',# feat import RF
+  ###'SuporteVent_POSop7', # feat import RF
+  #'ATBTrat_POSop',
+  ###'Sepse_POSop7',# feat import RF
+  ###'Oliguria_POSop7', # feat import RF
+  ###'Abdominal_POSop7', # feat import RF
+  ##'IAM_POSop7',
+  ###'Arritmia_POSop7', # feat import RF
+  ##'EAP_POSop7',
+  ##'AnticoagPlena_POSop7',
+  ###'AVC_POSop7', # feat import RF
+  'Delirium_POSop7',
+  ### 'Coma_POSop7', # feat import RF
+  ##'DeiscFO_POSop7',
+  ##'FOpurulenta_POSop7', # feat import RF
+  ###'Transfusao_POSop7', # feat import RF
+  ###'TRR_7dias', # feat import RF
+  #'Data1oTRR_POSop',
+  #'Complicacao_LIVRE',
+  ###'UTI_NaoPlanejadaPOSop7', # feat import RF
+  #'pHArt_Preop',
+  ##'Lactato_Preop',
+  ###'Hb_Preop', # feat import RF
+  ###'Creatin_Preop', # feat import RF
+  #'TFG_Preop', # feat import RF
+  ##'IRA_Preop',
+  #'Dialise_Preop',
+  ##'IRC_Preop', # feat import RF
+  #'pHArt_POSop7',
+  ##'Lactato_POSop7',
+  #'Hb_POSop7',
+  #'Creatin_POSop7',
+  #'TFG_POSop7',
+  #'IRA_POSop', # feat import RF
+  #####teste# 'Tempo_Int_TOTAL', # eh redundante
+  'Tempo_Int_Preop',
+  #'Tempo_Int_POSop',
+  #'Data_Alta',
+  #'Reintervencao_Cir30', # feat import RF
+  #'Data_Reintervencao',
+  #'Descricao_Reintervencao',
+  #'QTD_ReintervencnaInternacao',
+  ##'Reinternacao_30',
+  #'Data_Reinternacao',
+  #'Descricao_Reinternacao',
+  #'Obito_30', # feat import RF
+  #'Data_Obito',
+  #'Causa_Obito_Descrever',
+  #'Comentários',
+  'Num_Complicacoes',
+  #'Quem_EvoD1',
+  #'Quem_EvoD2',
+  #'Leito_Internação',
+  #'Tropo_PREop',
+  ##'Tropo_24H',
+  ##'Tropo_48H',
+  #'ETNIA',
+  #'ETNIA_CAT',
+  ##'ETNIA_BRANCA',
+  ##'ETNIA_PARDA',
+  ##'ETNIA_PRETA',
+  ##'ETNIA_PARDA_PRETA',
+]
+
+
+features_pre = [
+  #'NOME_REVISOR',
+  #'Dupla_Conf',
+  #'NOME_PACIENTE',
+  #'Prontuario',
+  #'Escolaridade',
+  'Sexo_M',
+  #'Cirurgia',
+  #'Data_Cirurgia',
+  #'Equipe_Cx',
+  'ASA',
+  'Urgencia',
+  'Idade',
+  'Porte',
+  #'predito_SAMPE1',
+  #'statusSAMPE1',
+  ##'Tempo_Cirurgico',
+  ##'ContamPeritoneal',
+  ##'Sangramento',
+  'Sepse_Preop',
+  'HAS_Preop',
+  'PCR_Preop',
+  'DAOP_Preop',
+  'CardIsq_Preop',
+  'Angina_Preop',
+  'IAMRecente_Preop',
+  'IAMAntigo_Preop',
+  'ICC_Preop',
+  'EAP_Preop',
+  'HAP_Preop',
+  'Valvulo_Preop',
+  'EstenAoGrave_Preop',
+  'Arritmia_Preop',
+  'Asma_Preop',
+  'DPOC_Preop',
+  'Tabag_Preop',
+  'ExTaba_Preop',
+  'O2Dom_Preop',
+  'IOT_Preop',
+  'Acamado_Preop',
+  'AVC_Preop',
+  'Demencia_Preop',
+  'Parkinson_Preop',
+  'Obesid_Preop',
+  'SAHOS_Preop',
+  'Desnutricao_Preop',
+  'DmNAOInsu_Preop',
+  'Dminsulino_Preop',
+  'Etilismo_Preop',
+  'Cirrose_Preop',
+  'HIV_Preop',
+  'Neoplasia_Preop',
+  'NeoInop_MTX_Preop',
+  #'Comorb_LIVRE',
+  'Vasopressor_Preop',
+  'VeioUTI_Preop',
+  #'URPA_POSop',
+  #'UTI_POSop',
+  #'NoraCPD_POSop',
+  #'NoraVascular_POSop',
+  #'VasopChocado_POSop7',
+  #'TempoVasoChocado_POSop7',
+  #'Volume_POSop7',
+  #'Oxigênio_POSop7',
+  #'SuporteVent_POSop7',
+  #'ATBTrat_POSop',
+  #'Sepse_POSop7',
+  #'Oliguria_POSop7',
+  #'Abdominal_POSop7',
+  #'IAM_POSop7',
+  #'Arritmia_POSop7',
+  #'EAP_POSop7',
+  #'AnticoagPlena_POSop7',
+  #'AVC_POSop7',
+  'Delirium_POSop7',
+  #'Coma_POSop7',
+  #'DeiscFO_POSop7',
+  #'FOpurulenta_POSop7',
+  #'Transfusao_POSop7',
+  #'TRR_7dias',
+  #'Data1oTRR_POSop',
+  #'Complicacao_LIVRE',
+  #'UTI_NaoPlanejadaPOSop7',
+  'pHArt_Preop',
+  'Lactato_Preop',
+  'Hb_Preop',
+  'Creatin_Preop',
+  'TFG_Preop',
+  'IRA_Preop',
+  'Dialise_Preop',
+  'IRC_Preop',
+  #'pHArt_POSop7',
+  #'Lactato_POSop7',
+  #'Hb_POSop7',
+  #'Creatin_POSop7',
+  #'TFG_POSop7',
+  #'IRA_POSop',
+  #'Tempo_Int_TOTAL',
+  #'Tempo_Int_POSop',
+  'Tempo_Int_Preop',
+  #'Data_Alta',
+  #'Reintervencao_Cir30',
+  #'Data_Reintervencao',
+  #'Descricao_Reintervencao',
+  #'QTD_ReintervencnaInternacao',
+  #'Reinternacao_30',
+  #'Data_Reinternacao',
+  #'Descricao_Reinternacao',
+  #'Obito_30', nao queremos
+  #'Data_Obito',
+  #'Causa_Obito_Descrever',
+  #'Comentários',
+  #'Num_Complicacoes',
+  #'Quem_EvoD1',
+  #'Quem_EvoD2',
+  #'Leito_Internação',
+  'Tropo_PREop',
+  #'Tropo_24H',
+  #'Tropo_48H',
+  #'ETNIA',
+  #'ETNIA_CAT',
+  #'ETNIA_BRANCA',
+  #'ETNIA_PARDA',
+  #'ETNIA_PRETA',
+  #'ETNIA_PARDA_PRETA',
+]
+
+features_pos = [
+  #'NOME_REVISOR',
+  #'Dupla_Conf',
+  #'NOME_PACIENTE',
+  #'Prontuario',
+  #'Escolaridade',
+  #'Sexo_M',
+  #'Cirurgia',
+  #'Data_Cirurgia',
+  #'Equipe_Cx',
+  #'ASA',
+  #'Urgencia',
+  #'Idade',
+  #'Porte',
+  #'predito_SAMPE1',
+  #'statusSAMPE1',
+  'Tempo_Cirurgico',
+  'ContamPeritoneal',
+  'Sangramento',
+  #'Sepse_Preop',
+  #'HAS_Preop',
+  #'PCR_Preop',
+  #'DAOP_Preop',
+  #'CardIsq_Preop',
+  #'Angina_Preop',
+  #'IAMRecente_Preop',
+  #'IAMAntigo_Preop',
+  #'ICC_Preop',
+  #'EAP_Preop',
+  #'HAP_Preop',
+  #'Valvulo_Preop',
+  #'EstenAoGrave_Preop',
+  #'Arritmia_Preop',
+  #'Asma_Preop',
+  #'DPOC_Preop',
+  #'Tabag_Preop',
+  #'ExTaba_Preop',
+  #'O2Dom_Preop',
+  #'IOT_Preop',
+  #'Acamado_Preop',
+  #'AVC_Preop',
+  #'Demencia_Preop',
+  #'Parkinson_Preop',
+  #'Obesid_Preop',
+  #'SAHOS_Preop',
+  #'Desnutricao_Preop',
+  #'DmNAOInsu_Preop',
+  #'Dminsulino_Preop',
+  #'Etilismo_Preop',
+  #'Cirrose_Preop',
+  #'HIV_Preop',
+  #'Neoplasia_Preop',
+  #'NeoInop_MTX_Preop',
+  #'Comorb_LIVRE',
+  #'Vasopressor_Preop',
+  #'VeioUTI_Preop',
+  'URPA_POSop',
+  'UTI_POSop',
+  'NoraCPD_POSop',
+  'NoraVascular_POSop',
+  'VasopChocado_POSop7',
+  'TempoVasoChocado_POSop7',
+  'Volume_POSop7',
+  'Oxigênio_POSop7',
+  'SuporteVent_POSop7',
+  'ATBTrat_POSop',
+  'Sepse_POSop7',
+  'Oliguria_POSop7',
+  'Abdominal_POSop7',
+  'IAM_POSop7',
+  'Arritmia_POSop7',
+  'EAP_POSop7',
+  'AnticoagPlena_POSop7',
+  'AVC_POSop7',
+  'Delirium_POSop7',
+  'Coma_POSop7',
+  'DeiscFO_POSop7',
+  'FOpurulenta_POSop7',
+  'Transfusao_POSop7',
+  'TRR_7dias',
+  #'Data1oTRR_POSop',
+  #'Complicacao_LIVRE',
+  'UTI_NaoPlanejadaPOSop7',
+  #'pHArt_Preop',
+  #'Lactato_Preop',
+  #'Hb_Preop',
+  #'Creatin_Preop',
+  #'TFG_Preop',
+  #'IRA_Preop',
+  #'Dialise_Preop',
+  #'IRC_Preop',
+  'pHArt_POSop7',
+  'Lactato_POSop7',
+  'Hb_POSop7',
+  'Creatin_POSop7',
+  'TFG_POSop7',
+  'IRA_POSop',
+  'Tempo_Int_TOTAL',
+  'Tempo_Int_POSop',
+  #'Data_Alta',
+  'Reintervencao_Cir30',
+  #'Data_Reintervencao',
+  #'Descricao_Reintervencao',
+  #'QTD_ReintervencnaInternacao',
+  'Reinternacao_30',
+  #'Data_Reinternacao',
+  #'Descricao_Reinternacao',
+  #'Obito_30', nao queremos
+  #'Data_Obito',
+  #'Causa_Obito_Descrever',
+  #'Comentários',
+  'Num_Complicacoes',
+  #'Quem_EvoD1',
+  #'Quem_EvoD2',
+  #'Leito_Internação',
+  #'Tropo_PREop',
+  'Tropo_24H',
+  'Tropo_48H',
+  #'ETNIA',
+  #'ETNIA_CAT',
+  #'ETNIA_BRANCA',
+  #'ETNIA_PARDA',
+  #'ETNIA_PRETA',
+  #'ETNIA_PARDA_PRETA',
+]
+
